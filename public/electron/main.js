@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var electron_1 = require("electron");
 var childProcess = require('child_process');
 var path = require('path');
 var url = require("url");
@@ -29,17 +30,27 @@ var Main = /** @class */ (function () {
         var appIsNotPackaged = !Main.app.isPackaged;
         return appIsNotPackaged;
     };
+    Main.setupLocalFilesNormalizerProxy = function () {
+        electron_1.protocol.registerHttpProtocol("file", function (request, callback) {
+            var url = request.url.substr(8);
+            callback({ path: path.normalize(__dirname + "/" + url) });
+        } /* ,
+        (error: any): void => {
+            if (error) console.error("Failed to register protocol");
+        } */);
+    };
     Main.onReady = function () {
         var isDev = Main.isAppRunningInDevMode();
         var customWidth = isDev ? 1200 : 800;
         Main.SpwanChildProcess();
+        Main.setupLocalFilesNormalizerProxy();
         Main.mainWindow = new Main.BrowserWindow({
             backgroundColor: '#383838',
             width: customWidth,
             height: 600,
             webPreferences: {
                 nodeIntegration: true,
-                preload: path.join(__dirname, "preload.js")
+                preload: path.join(__dirname, "preload.ts")
             }
         });
         var contentProviderPath = !isDev

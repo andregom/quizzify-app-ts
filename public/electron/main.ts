@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, protocol } from 'electron';
 const childProcess = require('child_process');
 const path = require('path');
 const url = require("url");
@@ -8,7 +7,7 @@ export default class Main {
     static mainWindow: Electron.BrowserWindow;
     static app: Electron.App;
     static BrowserWindow;
-    static localBackendNodeProcess: ChildProcess;
+    static localBackendNodeProcess: any;
     static Electronmon: any;
 
     private static onWindowAllClosed() {
@@ -38,17 +37,31 @@ export default class Main {
         return appIsNotPackaged;
     }
 
+    private static setupLocalFilesNormalizerProxy() {
+        protocol.registerHttpProtocol(
+            "file",
+            (request, callback) => {
+                const url = request.url.substr(8);
+                callback({ path: path.normalize(`${__dirname}/${url}`) });
+            }/* ,
+            (error: any): void => {
+                if (error) console.error("Failed to register protocol");
+            } */
+        );
+    }
+
     private static onReady() {
         const isDev = Main.isAppRunningInDevMode()
         const customWidth = isDev ? 1200 : 800
         Main.SpwanChildProcess();
+        Main.setupLocalFilesNormalizerProxy();
         Main.mainWindow = new Main.BrowserWindow({
             backgroundColor: '#383838',
             width: customWidth,
             height: 600,
             webPreferences: {
                 nodeIntegration: true,
-                preload: path.join(__dirname, "preload.js"),
+                preload: path.join(__dirname, "preload.ts"),
             }
         });
         const contentProviderPath = !isDev
@@ -66,6 +79,8 @@ export default class Main {
         }
         Main.mainWindow.on('closed', Main.onClose);
     }
+
+    
 
     static main(app: Electron.App, browserWindow: typeof BrowserWindow, electronmon: any) {
         // we pass the Electron.App object and the  

@@ -1,6 +1,7 @@
 {
   "name": "quizzify-app-cra-ts",
   "version": "0.1.0",
+  "homepage": "./",
   "main": "./public/electron/app.js",
   "private": true,
   "dependencies": {

@@ -1,6 +1,7 @@
 {
   "name": "quizzify-app-cra-ts",
   "version": "0.1.0",
+  "main": "./public/electron/app.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -17,10 +18,17 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-electron-app": "(cd ./public/electron && tsc -w app.ts)",
+    "run-electron": "wait-on tcp:3000 && electron .",
+    "run-electronmon": "wait-on tcp:3000 && electronmon .",
+    "launch-electron": "npm-run-all -p -r build-electron-app run-electron",
+    "launch-electronmon": "npm-run-all -p -r build-electron-app run-electronmon",
+    "launch-dev": "npm-run-all -p -r start launch-electron",
+    "launch-dev-mon": "npm-run-all -p start launch-electronmon"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +47,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "cross-env": "^7.0.3",
+    "electron": "^15.3.0",
+    "electron-builder": "^22.13.1",
+    "electronmon": "^2.0.2",
+    "ncc": "^0.3.6",
+    "wait-on": "^6.0.0",
+    "yarn-run-all": "^3.1.1"
   }
 }

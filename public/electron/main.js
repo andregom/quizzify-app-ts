@@ -1,13 +1,14 @@
 "use strict";
 exports.__esModule = true;
-var path = require('path');
 var childProcess = require('child_process');
+var path = require('path');
+var url = require("url");
 var Main = /** @class */ (function () {
     function Main() {
     }
     Main.onWindowAllClosed = function () {
         if (process.platform !== 'darwin') {
-            Main.application.quit();
+            Main.app.quit();
         }
     };
     Main.onClose = function () {
@@ -24,19 +25,35 @@ var Main = /** @class */ (function () {
             }
         });
     };
+    Main.isAppRunningInDevMode = function () {
+        var appIsNotPackaged = !Main.app.isPackaged;
+        return appIsNotPackaged;
+    };
     Main.onReady = function () {
+        var isDev = Main.isAppRunningInDevMode();
+        var customWidth = isDev ? 1200 : 800;
         Main.SpwanChildProcess();
         Main.mainWindow = new Main.BrowserWindow({
             backgroundColor: '#383838',
-            width: 800,
+            width: customWidth,
             height: 600,
             webPreferences: {
-                nodeIntegration: true
+                nodeIntegration: true,
+                preload: path.join(__dirname, "preload.js")
             }
         });
-        /* Main.bindWatchingProcess() */
+        var contentProviderPath = !isDev
+            ? url.format({
+                pathname: path.join(__dirname, "index.html"),
+                protocol: "file:",
+                slashes: true
+            })
+            : "http://localhost:3000";
         Main.mainWindow
-            .loadURL('http://localhost:3000');
+            .loadURL(contentProviderPath);
+        if (isDev) {
+            Main.mainWindow.webContents.openDevTools();
+        }
         Main.mainWindow.on('closed', Main.onClose);
     };
     Main.main = function (app, browserWindow, electronmon) {
@@ -45,9 +62,9 @@ var Main = /** @class */ (function () {
         // so this class has no dependencies. This 
         // makes the code easier to write tests for 
         Main.BrowserWindow = browserWindow;
-        Main.application = app;
-        Main.application.on('window-all-closed', Main.onWindowAllClosed);
-        Main.application.on('ready', Main.onReady);
+        Main.app = app;
+        Main.app.on('window-all-closed', Main.onWindowAllClosed);
+        Main.app.on('ready', Main.onReady);
     };
     return Main;
 }());

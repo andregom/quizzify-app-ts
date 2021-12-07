@@ -8,7 +8,6 @@ export default class Main {
     static app: Electron.App;
     static BrowserWindow;
     static localBackendNodeProcess: any;
-    static Electronmon: any;
 
     private static onWindowAllClosed() {
         if (process.platform !== 'darwin') {
@@ -66,7 +65,7 @@ export default class Main {
         });
         const contentProviderPath = !isDev
             ? url.format({
-                pathname: path.join(__dirname, "index.html"),
+                pathname: path.join(__dirname, "../../", "build", "index.html"),
                 protocol: "file:",
                 slashes: true,
             })
@@ -82,7 +81,7 @@ export default class Main {
 
     
 
-    static main(app: Electron.App, browserWindow: typeof BrowserWindow, electronmon: any) {
+    static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
         // we pass the Electron.App object and the  
         // Electron.BrowserWindow into this function 
         // so this class has no dependencies. This 

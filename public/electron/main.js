@@ -53,21 +53,26 @@ var Main = /** @class */ (function () {
                 preload: path.join(__dirname, "preload.ts")
             }
         });
-        var contentProviderPath = !isDev
+        /* const contentProviderPath = !isDev
             ? url.format({
-                pathname: path.join(__dirname, "index.html"),
+                pathname: path.join(__dirname, "build","index.html"),
                 protocol: "file:",
-                slashes: true
+                slashes: true,
             })
-            : "http://localhost:3000";
+            : "http://localhost:3000"; */
+        var contentProviderPath = url.format({
+            pathname: path.join(__dirname, "../../", "build", "index.html"),
+            protocol: "file:",
+            slashes: true
+        });
         Main.mainWindow
             .loadURL(contentProviderPath);
-        if (isDev) {
+        if (true) {
             Main.mainWindow.webContents.openDevTools();
         }
         Main.mainWindow.on('closed', Main.onClose);
     };
-    Main.main = function (app, browserWindow, electronmon) {
+    Main.main = function (app, browserWindow) {
         // we pass the Electron.App object and the  
         // Electron.BrowserWindow into this function 
         // so this class has no dependencies. This 

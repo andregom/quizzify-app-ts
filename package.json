@@ -4,6 +4,8 @@
   "homepage": "./",
   "main": "./public/electron/app.js",
   "private": true,
+  "author": "André Gomes",
+  "description": "A tool that aims to generate automated questions about a text.",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -18,6 +20,24 @@
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
+
+  "build": {
+    "appId": "com.electron.quizzify",
+    "productName": "Quizzify",
+    "files": ["build/ **/*", "node_modules/** /*"],
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb"
+    }
+  },
   "scripts": {
     "start": "cross-env BROWSER=none react-scripts start",
     "build": "react-scripts build",
@@ -29,7 +49,10 @@
     "launch-electron": "npm-run-all -p -r build-electron-app run-electron",
     "launch-electronmon": "npm-run-all -p -r build-electron-app run-electronmon",
     "launch-dev": "npm-run-all -p -r start launch-electron",
-    "launch-dev-mon": "npm-run-all -p start launch-electronmon"
+    "launch-dev-mon": "npm-run-all -p start launch-electronmon",
+    "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=build/electron/app.js",
+    "electron:package:win": "yarn build && electron-builder -w -c.extraMetadata.main=build/electron/app.js",
+    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron/app.js"
   },
   "eslintConfig": {
     "extends": [
@@ -39,14 +62,10 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 electron version"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 electron version"
     ]
   },
   "devDependencies": {

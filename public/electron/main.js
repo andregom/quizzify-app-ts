@@ -53,21 +53,16 @@ var Main = /** @class */ (function () {
                 preload: path.join(__dirname, "preload.ts")
             }
         });
-        /* const contentProviderPath = !isDev
+        var contentProviderPath = !isDev
             ? url.format({
-                pathname: path.join(__dirname, "build","index.html"),
+                pathname: path.join(__dirname, "../../", "build", "index.html"),
                 protocol: "file:",
-                slashes: true,
+                slashes: true
             })
-            : "http://localhost:3000"; */
-        var contentProviderPath = url.format({
-            pathname: path.join(__dirname, "../../", "build", "index.html"),
-            protocol: "file:",
-            slashes: true
-        });
+            : "http://localhost:3000";
         Main.mainWindow
             .loadURL(contentProviderPath);
-        if (true) {
+        if (isDev) {
             Main.mainWindow.webContents.openDevTools();
         }
         Main.mainWindow.on('closed', Main.onClose);

@@ -1,0 +1,1 @@
+from resources.routes import Users, Subjects, Contents, Quizzes, Assessment

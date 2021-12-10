@@ -1,0 +1,82 @@
+{
+  "name": "quizzify-app-cra-ts",
+  "version": "0.1.0",
+  "homepage": "./",
+  "main": "./public/electron/app.js",
+  "private": true,
+  "author": "André Gomes",
+  "description": "A tool that aims to generate automated questions about a text.",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
+  },
+
+  "build": {
+    "appId": "com.electron.quizzify",
+    "productName": "Quizzify",
+    "files": ["build/ **/*", "node_modules/** /*"],
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb"
+    }
+  },
+  "scripts": {
+    "start": "cross-env BROWSER=none react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "build-electron-app": "(cd ./public/electron && tsc app.ts)",
+    "watch-electron-app": "(cd ./public/electron && tsc -w app.ts)",
+    "run-electron": "wait-on tcp:3000 && electron .",
+    "run-electronmon": "wait-on tcp:3000 && electronmon .",
+    "launch-electron": "npm-run-all -p -r watch-electron-app run-electron",
+    "launch-electronmon": "npm-run-all -p -r watch-electron-app run-electronmon",
+    "launch-dev": "npm-run-all -p -r start launch-electron",
+    "launch-dev-mon": "npm-run-all -p start launch-electronmon",
+    "electron:package:mac": "yarn build-electron-app && yarn build && electron-builder -m -c.extraMetadata.main=build/electron/app.js",
+    "electron:package:win": "yarn build-electron-app && yarn build && electron-builder -w -c.extraMetadata.main=build/electron/app.js",
+    "electron:package:linux": "yarn build-electron-app && yarn build && electron-builder -l -c.extraMetadata.main=build/electron/app.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "last 1 electron version"
+    ],
+    "development": [
+      "last 1 electron version"
+    ]
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "cross-env": "^7.0.3",
+    "electron": "^15.3.0",
+    "electron-builder": "^22.13.1",
+    "electronmon": "^2.0.2",
+    "ncc": "^0.3.6",
+    "wait-on": "^6.0.0",
+    "yarn-run-all": "^3.1.1"
+  }
+}

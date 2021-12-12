@@ -17,7 +17,8 @@ var Main = /** @class */ (function () {
         Main.mainWindow = null;
     };
     Main.SpwanChildProcess = function () {
-        Main.localBackendNodeProcess = childProcess.fork(path.join(__dirname, 'NodeBcknd.js'), ['hello'], {
+        Main.localBackendPythonProcess = childProcess.spawn('python', [path.join(__dirname, "../../../", "backend", 'quizzify_app_bcknd.py')], {
+            shell: true,
             silent: true,
             detached: true,
             stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
@@ -25,6 +26,18 @@ var Main = /** @class */ (function () {
                 ELECTRON_RUN_AS_NODE: 1
             }
         });
+
+        Main.localBackendPythonProcess.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+          });
+            
+          Main.localBackendPythonProcess.stderr.on('data', (data) => {
+            console.error(`stderr: ${data}`);
+          });
+            
+          Main.localBackendPythonProcess.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+          });
     };
     Main.isAppRunningInDevMode = function () {
         var appIsNotPackaged = !Main.app.isPackaged;

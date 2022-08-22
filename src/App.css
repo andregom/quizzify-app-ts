@@ -9,8 +9,21 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite alternate 3s ease-in-out;
   }
+}
+
+.get-started-button {
+  background-color: rgb(51, 140, 81);
+  padding: 10px 10px;
+  border: solid rgb(88, 127, 194);
+  border-radius: 5px !important;
+  color: rgb(95, 45, 128);
+  font-weight: bold;
+}
+
+.get-started-button:hover {
+  cursor: pointer;
 }
 
 ul {
@@ -23,7 +36,7 @@ a {
   margin-block-end: 0em;
 }
 
-a ~ ul {
+a~ul {
   margin-block-start: 0em;
 }
 
@@ -52,15 +65,12 @@ a ~ ul {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(-30deg);
   }
+
   to {
-    transform: rotate(360deg);
+    transform: rotate(30deg);
   }
 }

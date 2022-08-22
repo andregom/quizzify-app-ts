@@ -1,0 +1,110 @@
+.contents-page-body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 0.1fr 0.15fr 0.55fr 0.2fr;
+    grid-template-columns: 0.2fr 0.6fr 0.2fr;
+    padding: 4px;
+}
+
+.contents-page-body * {
+    margin-top: 4px;
+}
+
+.app-logo2 {
+    width: 120px;
+    height: 120px;
+    padding-left: 0;
+    margin-left: -10px;
+    margin-right: -25px;
+}
+
+.go-back-button {
+    background-color: rgb(51, 140, 81);
+    padding: 10px 10px;
+    border: solid rgb(88, 127, 194);
+    border-radius: 5px !important;
+    color: white;
+    font-weight: bolder;
+}
+
+.go-back-button:hover {
+    cursor: pointer;
+}
+
+.subject {
+    display: flex;
+    flex-direction: column;
+    grid-row: 2;
+    grid-column: 2;
+    color: white;
+}
+
+.sub-text {
+    color: #AEAEAE;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    grid-row: 3;
+    grid-column: 2;
+    color: white;
+}
+
+.inputs {
+    background-color: #D9D9D9;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    color: #7B7B7B;
+    padding-left: 8px !important;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.contents-input {
+    align-items: flex-start;
+    height: 300px;
+    background: #D9D9D9;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding-top: 8px;
+    margin-bottom: 3px;
+}
+
+.send-button {
+    grid-row: 4;
+    grid-column: 2;
+    background-color: rgb(51, 140, 81);
+    padding: 10px 10px;
+    border: solid rgb(88, 127, 194);
+    border-radius: 5px !important;
+    color: rgb(95, 45, 128);
+    font-weight: bold;
+    padding-bottom: 4px;
+    margin-top: 4px;
+    margin-bottom: auto;
+}
+
+.send-button:hover {
+    cursor: pointer;
+}
+
+.logo-container {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 73px;
+
+    color: #ebeaea;
+
+
+}

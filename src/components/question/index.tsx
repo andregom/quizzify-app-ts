@@ -19,6 +19,7 @@ const MultiChoiceQuestion: React.FC<MultiChoiceQuestionProps> = (props) => {
     const [questionIndex, setquestionIndex] = useState<number>(0);
 
     useEffect(() => {
+        setData(props);
         clearAnswersDecoration();
     }, [props, options]);
 

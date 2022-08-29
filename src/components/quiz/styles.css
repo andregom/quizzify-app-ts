@@ -1,0 +1,16 @@
+.quiz {
+    background-color: antiquewhite;
+}
+
+.quiz * {
+    margin-bottom: 1px;
+    margin-left: 4px;
+}
+
+.quiz li {
+    list-style: none
+}
+
+.quiz ul {
+    padding-bottom: 5px;
+}

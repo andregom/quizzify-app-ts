@@ -1,7 +1,7 @@
 .contents-page-body {
     height: 100vh;
     display: grid;
-    grid-template-rows: 0.1fr 0.15fr 0.55fr 0.2fr;
+    grid-template-rows: 0.1fr 0.15fr 0.55fr 0.2fr 400px;
     grid-template-columns: 0.2fr 0.6fr 0.2fr;
     padding: 4px;
 }
@@ -105,6 +105,10 @@
     line-height: 73px;
 
     color: #ebeaea;
+}
 
-
+.quiz-container {
+    grid-row: 5;
+    grid-column: 2;
+    background-color: antiquewhite;
 }

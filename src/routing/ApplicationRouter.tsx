@@ -8,7 +8,7 @@ const ApplicationRouter: React.FC = () => {
         <Routes>
             <Route path="/" element={<App />} />
             <Route path='/get-contents' element={<ContenetsInputPage />} />
-            <Route path='/quiz' element={<QuizComponent />} />
+            {/* <Route path='/quiz' element={<QuizComponent />} /> */}
         </Routes>
     );
 }

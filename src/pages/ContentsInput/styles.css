@@ -72,6 +72,13 @@
     margin-bottom: 3px;
 }
 
+.send-button-link {
+    grid-row: 4;
+    grid-column: 2;
+    width: max-content;
+    margin: auto;
+}
+
 .send-button {
     grid-row: 4;
     grid-column: 2;
@@ -84,6 +91,7 @@
     padding-bottom: 4px;
     margin-top: 4px;
     margin-bottom: auto;
+    padding: 4px 40px;
 }
 
 .send-button:hover {
@@ -110,5 +118,4 @@
 .quiz-container {
     grid-row: 5;
     grid-column: 2;
-    background-color: antiquewhite;
 }
